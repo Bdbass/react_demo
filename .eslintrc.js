@@ -1,23 +1,28 @@
 module.exports = {
-    parser: 'babel-eslint',
-    env: {
-        browser: true,
-        commonjs: true,
-        es6: true,
-        node: true,
-        jest: true,
+    "env": {
+        "browser": true,
+        "es6": true
     },
-    plugins: ['react-hooks', 'react'],
-    extends: ['eslint:recommended', 'plugin:react/recommended'],
-    parserOptions: {
-        ecmaVersion: 2018,
-        ecmaFeatures: {
-            impliedStrict: true,
-            jsx: true,
+    "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/eslint-recommended"
+    ],
+    "globals": {
+        "Atomics": "readonly",
+        "SharedArrayBuffer": "readonly"
+    },
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
         },
-        sourceType: 'module',
+        "ecmaVersion": 2018,
+        "sourceType": "module"
     },
-    rules: {
-        'react/prop-types': ['off']
-    },
+    "plugins": [
+        "react",
+        "@typescript-eslint"
+    ],
+    "rules": {
+    }
 };

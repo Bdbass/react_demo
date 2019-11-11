@@ -4,6 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 process.env.NODE_ENV = 'development';
 
 module.exports = {
+    entry: './src/index.jsx',
     mode: 'development',
     devtool: 'inline-source-map',
     devServer: {
@@ -11,6 +12,9 @@ module.exports = {
         overlay: true,
         historyApiFallback: true,
         contentBase: './dist'
+    },
+    resolve: {
+        extensions: ['.ts', '.tsx', '.js', '.jsx']
     },
     plugins: [
         new HtmlWebpackPlugin({
@@ -24,9 +28,15 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.(js|jsx)$/,
+                test: /\.(t|j)sx$/,
                 exclude: /node_modules/,
-                use: ['babel-loader']
+                use: 'awesome-typescript-loader?module=es6'
+            },
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                use: 'source-map-loader',
+                enforce: "pre"
             },
             {
                 test: /\.css$/,

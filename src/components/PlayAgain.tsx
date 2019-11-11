@@ -1,6 +1,11 @@
 import React from "react";
 
-const PlayAgain = props => (
+interface PlayAgainProps {
+    gameStatus: string;
+    onClick: () => void;
+}
+
+const PlayAgain = (props: PlayAgainProps) => (
     <div className="game-done">
         <div
             className="message"

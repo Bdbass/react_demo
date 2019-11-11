@@ -7,8 +7,13 @@ const colors = {
     wrong: 'lightcoral',
     candidate: 'deepskyblue',
 };
+interface PlayNumberProps {
+    status: string;
+    number: number;
+    onClick: (a: number, status: string) => void;
+}
 
-const PlayNumber = props => (
+const PlayNumber = (props: PlayNumberProps) => (
     <button
         className="number"
         style={{ backgroundColor: colors[props.status] }}

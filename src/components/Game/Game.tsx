@@ -1,39 +1,15 @@
-import React, { useState, useEffect } from "react";
-import StarsDisplay from "./StarDisplay";
-import PlayNumber from "./PlayNumber";
-import PlayAgain from "./PlayAgain";
-import utils from "../utils";
+import React from "react";
+import StarsDisplay from "../StarDisplay";
+import PlayNumber from "../PlayNumber";
+import PlayAgain from "../PlayAgain";
+import utils from "../../utils";
+import useGameState from "./GameState";
 
-const useGameState = timeLimit => {
-    const [stars, setStars] = useState(utils.random(1, 9));
-    const [availableNums, setAvailableNums] = useState(utils.range(1, 9));
-    const [candidateNums, setCandidateNums] = useState([]);
-    const [secondsLeft, setSecondsLeft] = useState(timeLimit);
+interface GameProps {
+    startNewGame: () => void;
+}
 
-    useEffect(() => {
-        if (secondsLeft > 0 && availableNums.length > 0) {
-            const timerId = setTimeout(() => setSecondsLeft(secondsLeft - 1), 1000);
-            return () => clearTimeout(timerId);
-        }
-    }, [secondsLeft]);
-
-    const setGameState = (newCandidateNums) => {
-        if (utils.sum(newCandidateNums) !== stars) {
-            setCandidateNums(newCandidateNums);
-        } else {
-            const newAvailableNums = availableNums.filter(
-                n => !newCandidateNums.includes(n)
-            );
-            setStars(utils.randomSumIn(newAvailableNums, 9));
-            setAvailableNums(newAvailableNums);
-            setCandidateNums([]);
-        }
-    };
-
-    return { stars, availableNums, candidateNums, secondsLeft, setGameState };
-};
-
-const Game = props => {
+const Game = (props: GameProps) => {
     const {
         stars,
         availableNums,
@@ -47,7 +23,7 @@ const Game = props => {
         ? 'won'
         : secondsLeft === 0 ? 'lost' : 'active'
 
-    const numberStatus = number => {
+    const numberStatus = (number: number) => {
         if (!availableNums.includes(number)) {
             return 'used';
         }
@@ -59,7 +35,7 @@ const Game = props => {
         return 'available';
     };
 
-    const onNumberClick = (number, currentStatus) => {
+    const onNumberClick = (number: number, currentStatus: string) => {
         if (currentStatus === 'used' || secondsLeft === 0) {
             return;
         }
