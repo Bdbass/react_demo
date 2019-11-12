@@ -2,7 +2,7 @@ import React from "react";
 import StarsDisplay from "../StarDisplay";
 import PlayNumber from "../PlayNumber";
 import PlayAgain from "../PlayAgain";
-import utils from "../../utils";
+import utils from "../../../utils";
 import useGameState from "./GameState";
 
 interface GameProps {

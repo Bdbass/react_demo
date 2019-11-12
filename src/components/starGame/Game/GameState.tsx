@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import utils from '../../utils';
+import utils from '../../../utils';
 
 const useGameState = (timeLimit: number) => {
     const [stars, setStars] = useState(utils.random(1, 9));
