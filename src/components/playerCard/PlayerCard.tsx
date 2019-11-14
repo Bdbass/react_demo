@@ -2,12 +2,7 @@ import React, { useState } from "react";
 import Form from "./Form";
 import CardList from "./CardList"
 import { CardProps } from "./Card";
-
-const headerStyle = {
-    textAlign: "center" as "center",
-    fontSize: "1.5rem",
-    marginBottom: "1rem"
-}
+import { headerStyle } from './style';
 
 const App = (props: { title: string }) => {
     const [profiles, setProfiles] = useState<CardProps[]>([]);

@@ -1,26 +1,5 @@
 import React from "react";
-
-const profileStyle = {
-    margin: "1rem",
-    display: "flex",
-    justifyContent: "center"
-}
-
-const imgStyle = {
-    width: "75px"
-}
-
-const infoStyle = {
-    display: "inline-block",
-    marginLeft: "12px",
-}
-
-const nameStyle = {
-    fontSize: "1.25rem",
-    fontWeight: "bold" as "bold"
-}
-
-
+import { profileStyle, imgStyle, infoStyle, nameStyle } from './style';
 
 export interface CardProps {
     avatar_url: string;

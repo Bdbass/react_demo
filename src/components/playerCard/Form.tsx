@@ -1,32 +1,40 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { CardProps } from "./Card";
-
-
-const formStyle = {
-    border: "thin solid #ddd",
-    backgroundColor: "#fbfbfb",
-    padding: "2rem",
-    marginBottom: "2rem",
-    display: "flex",
-    justifyContent: "center"
-}
+import { formStyle } from './style';
+import { gql } from 'apollo-boost';
+import client from '../apollo';
 
 interface FormProps {
     onSubmit: (a: CardProps) => void;
 }
 
+const USER_QUERY = gql`
+ query User($userName: String!){
+    user(username: $userName){
+        name
+        company
+        avatar_url
+        id
+      }
+}
+`
+
 const Form = (props: FormProps) => {
     const [userName, setUserName] = useState('');
-    const handleSubmit = async (event: React.FormEvent) => {
-        event.preventDefault();
-        const resp = await axios.get(`https://api.github.com/users/${userName}`);
-        props.onSubmit(resp.data);
-        setUserName('');
-    };
+    const getUser = async (e: React.FormEvent) => {
+        e.preventDefault();
+        const result = await client.query({ query: USER_QUERY, variables: { userName: userName } });
+        console.log(result.data.user);
+        props.onSubmit(result.data.user);
+    }
 
     return (
-        <form onSubmit={handleSubmit} style={formStyle}>
+        <form
+            onSubmit={(e) => {
+                getUser(e);
+                setUserName('');
+            }}
+            style={formStyle}>
             <input
                 type="text"
                 value={userName}
